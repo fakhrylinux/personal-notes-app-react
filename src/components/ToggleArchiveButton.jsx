@@ -5,17 +5,21 @@ function ToggleArchiveButton({ id, toggleArchive, toggleInnerText }) {
   const onClickEventHandler = () => toggleArchive(id);
 
   return toggleInnerText === "archive" ? (
-    <MdArchive
-      size="3em"
-      onClick={onClickEventHandler}
-      style={{ cursor: "pointer" }}
-    />
+    <a role="button" tabIndex={0}>
+      <MdArchive
+        size="3em"
+        onClick={onClickEventHandler}
+        style={{ cursor: "pointer" }}
+      />
+    </a>
   ) : (
-    <MdUnarchive
-      size="3em"
-      onClick={onClickEventHandler}
-      style={{ cursor: "pointer" }}
-    />
+    <a role="button" tabIndex={0}>
+      <MdUnarchive
+        size="3em"
+        onClick={onClickEventHandler}
+        style={{ cursor: "pointer" }}
+      />
+    </a>
   );
 }
 
