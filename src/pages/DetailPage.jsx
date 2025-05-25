@@ -11,6 +11,7 @@ import DeleteButton from "../components/DeleteButton.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
 import React from "react";
 import PropTypes from "prop-types";
+import ProgressBar from "../components/ProgressBar.jsx";
 
 function DetailPageWrapper() {
   const { id } = useParams();
@@ -47,11 +48,22 @@ class DetailPage extends React.Component {
     super(props);
     this.state = {
       note: [],
+      loading: false,
     };
   }
 
   async componentDidMount() {
+    this.setState(() => {
+      return {
+        loading: true,
+      };
+    });
     const { data } = await getNote(this.props.id);
+    this.setState(() => {
+      return {
+        loading: false,
+      };
+    });
     this.setState(() => {
       return {
         note: data,
@@ -69,26 +81,29 @@ class DetailPage extends React.Component {
       : "archive";
 
     return (
-      <section className="detail-page">
-        <h3 className="detail-page__title">{this.state.note.title}</h3>
+      <>
+        {this.state.loading && <ProgressBar />}
+        <section className="detail-page">
+          <h3 className="detail-page__title">{this.state.note.title}</h3>
 
-        <p className="detail-page__createdAt">
-          {showFormattedDate(this.state.note.createdAt)}
-        </p>
-        <div className="detail-page__body"> {this.state.note.body} </div>
-        <div className="detail-page__action">
-          <div>
-            <ToggleArchiveButton
-              id={this.props.id}
-              toggleArchive={toggleArchive}
-              toggleInnerText={toggleArchiveButton}
-            />
+          <p className="detail-page__createdAt">
+            {showFormattedDate(this.state.note.createdAt)}
+          </p>
+          <div className="detail-page__body"> {this.state.note.body} </div>
+          <div className="detail-page__action">
+            <div>
+              <ToggleArchiveButton
+                id={this.props.id}
+                toggleArchive={toggleArchive}
+                toggleInnerText={toggleArchiveButton}
+              />
+            </div>
+            <div>
+              <DeleteButton id={this.props.id} onDelete={this.props.onDelete} />
+            </div>
           </div>
-          <div>
-            <DeleteButton id={this.props.id} onDelete={this.props.onDelete} />
-          </div>
-        </div>
-      </section>
+        </section>
+      </>
     );
   }
 }

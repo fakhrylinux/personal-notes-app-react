@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
 import SearchBar from "../components/SearchBar.jsx";
 import LocaleContext from "../contexts/LocaleContext.js";
+import ProgressBar from "../components/ProgressBar.jsx";
 
 function HomePageWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,11 +26,18 @@ class HomePage extends React.Component {
     this.state = {
       notes: [],
       keyword: props.defaultKeyword || "",
+      loading: false,
     };
   }
 
   async componentDidMount() {
+    this.setState(() => {
+      return { loading: true };
+    });
     const { data } = await getActiveNotes();
+    this.setState(() => {
+      return { loading: false };
+    });
     this.setState(() => {
       return {
         notes: data,
@@ -57,23 +65,26 @@ class HomePage extends React.Component {
       <LocaleContext.Consumer>
         {({ locale }) => {
           return (
-            <div className="content">
-              <section className="note_shelf">
-                <h2>{locale === "id" ? "Catatan Aktif" : "Active Note"}</h2>
-                <SearchBar
-                  keywordChange={this.onKeywordChangeHandler}
-                  keyword={this.state.keyword}
-                />
+            <>
+              {this.state.loading && <ProgressBar />}
+              <div className="content">
+                <section className="note_shelf">
+                  <h2>{locale === "id" ? "Catatan Aktif" : "Active Note"}</h2>
+                  <SearchBar
+                    keywordChange={this.onKeywordChangeHandler}
+                    keyword={this.state.keyword}
+                  />
 
-                {notes.length === 0 ? (
-                  <p className="notes-list__empty-message">
-                    {locale === "id" ? "Tidak ada catatan" : "No Notes"}
-                  </p>
-                ) : (
-                  <NotesList notes={notes} />
-                )}
-              </section>
-            </div>
+                  {notes.length === 0 ? (
+                    <p className="notes-list__empty-message">
+                      {locale === "id" ? "Tidak ada catatan" : "No Notes"}
+                    </p>
+                  ) : (
+                    <NotesList notes={notes} />
+                  )}
+                </section>
+              </div>
+            </>
           );
         }}
       </LocaleContext.Consumer>
