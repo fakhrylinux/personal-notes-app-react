@@ -1,9 +1,16 @@
 import { Link } from "react-router";
+import { useContext } from "react";
+import LocaleContext from "../contexts/LocaleContext.js";
 
 function NotFoundPage() {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <h1>
-      Error 404. Note not found. <Link to="/">Back to Main Page</Link>
+      {locale === "id" ? "Catatan tidak ditemukan. " : "Note not found. "}
+      <Link to="/">
+        {locale === "id" ? "Kembali ke Beranda" : "Back to Main Page"}
+      </Link>
     </h1>
   );
 }

@@ -1,6 +1,14 @@
 import { Link } from "react-router";
+import LocaleContext from "../contexts/LocaleContext.js";
+import { useContext } from "react";
+import ToggleTheme from "./ToggleTheme.jsx";
+import PropTypes from "prop-types";
+import LogoutButton from "./LogoutButton.jsx";
+import ChangeLocaleButton from "./ChangeLocaleButton.jsx";
 
-function Navigation() {
+function Navigation({ logout, name }) {
+  const { locale, toggleLocale } = useContext(LocaleContext);
+
   return (
     <header className="head_bar">
       <nav className="topnav">
@@ -9,18 +17,30 @@ function Navigation() {
         </Link>
         <ul id="links">
           <li>
-            <Link to="/notes/new">Add Note</Link>
+            <Link to="/notes/new">
+              {locale === "id" ? "Tambah Catatan" : "Add Note"}
+            </Link>
           </li>
           <li>
-            <Link to="/archive">Archive</Link>
+            <Link to="/archive">{locale === "id" ? "Arsip" : "Archive"}</Link>
+          </li>
+          <li>
+            <ChangeLocaleButton toggleLocale={toggleLocale} locale={locale} />
           </li>
         </ul>
-        <a id="mobile-menu" className="icon">
-          <i className="fa fa-bars"></i>
-        </a>
+        <div className="profile">
+          <ToggleTheme />
+          {name}
+          <LogoutButton logout={logout} />
+        </div>
       </nav>
     </header>
   );
 }
+
+Navigation.propTypes = {
+  logout: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default Navigation;

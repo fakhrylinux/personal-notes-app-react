@@ -3,14 +3,13 @@ import {
   deleteNote,
   getNote,
   unarchiveNote,
-} from "../utils/local-data.js";
+} from "../utils/api.js";
 import { useNavigate, useParams } from "react-router";
 import { showFormattedDate } from "../utils/index.js";
 import ToggleArchiveButton from "../components/ToggleArchiveButton.jsx";
 import DeleteButton from "../components/DeleteButton.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
 import React from "react";
-import parser from "html-react-parser";
 import PropTypes from "prop-types";
 
 function DetailPageWrapper() {
@@ -18,18 +17,18 @@ function DetailPageWrapper() {
 
   const navigate = useNavigate();
 
-  const onArchiveHandler = (id) => {
-    archiveNote(id);
+  const onArchiveHandler = async (id) => {
+    await archiveNote(id);
     navigate("/");
   };
 
-  const onUnArchiveHandler = (id) => {
-    unarchiveNote(id);
+  const onUnArchiveHandler = async (id) => {
+    await unarchiveNote(id);
     navigate("/archive");
   };
 
-  const onDeleteHandler = (id) => {
-    deleteNote(id);
+  const onDeleteHandler = async (id) => {
+    await deleteNote(id);
     navigate("/");
   };
 
@@ -47,8 +46,17 @@ class DetailPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      note: getNote(props.id),
+      note: [],
     };
+  }
+
+  async componentDidMount() {
+    const { data } = await getNote(this.props.id);
+    this.setState(() => {
+      return {
+        note: data,
+      };
+    });
   }
 
   render() {
@@ -67,20 +75,17 @@ class DetailPage extends React.Component {
         <p className="detail-page__createdAt">
           {showFormattedDate(this.state.note.createdAt)}
         </p>
-        <div className="detail-page__body">{parser(this.state.note.body)}</div>
+        <div className="detail-page__body"> {this.state.note.body} </div>
         <div className="detail-page__action">
           <div>
             <ToggleArchiveButton
-              id={this.state.note.id}
+              id={this.props.id}
               toggleArchive={toggleArchive}
               toggleInnerText={toggleArchiveButton}
             />
           </div>
           <div>
-            <DeleteButton
-              id={this.state.note.id}
-              onDelete={this.props.onDelete}
-            />
+            <DeleteButton id={this.props.id} onDelete={this.props.onDelete} />
           </div>
         </div>
       </section>

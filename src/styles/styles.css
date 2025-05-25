@@ -1,3 +1,19 @@
+:root {
+    --font-color: #333;
+    --background-color: #f6eca9;
+    --secondary-dark-color: #c5bf83;
+    --note-item-title: black;
+    --note-item-date: #11335a;
+}
+
+[data-theme="dark"] {
+    --font-color: #eee;
+    --note-item-title: #eee;
+    --background-color: #333;
+    --secondary-dark-color: #434343;
+    --note-item-date: #eee;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -51,18 +67,9 @@ p, h1, h2, h3, h4, h5, h6 {
     isolation: isolate;
 }
 
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-    cursor: pointer;
-    margin-inline: .5rem;
-}
-
 body {
-    background-color: #F6ECA9;
-    /*height: 100vw;*/
+    background-color: var(--background-color);
+    color: var(--font-color);
 }
 
 header {
@@ -110,18 +117,15 @@ nav a {
     padding: 14px 8px;
 }
 
-.topnav a.icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
 .topnav li:hover {
     background-color: #595eb7;
     color: black;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    color: #f6eca9;
 }
 
 main {
@@ -138,7 +142,7 @@ section {
     margin-inline: auto;
     width: 100%;
     padding: .5rem;
-    background-color: #c5bf83;
+    background-color: var(--secondary-dark-color);
 }
 
 .content {
@@ -215,13 +219,13 @@ button:hover {
     overflow: hidden;
     white-space: nowrap;
     margin-bottom: 4px;
-    color: black;
+    color: var(--note-item-title);
 }
 
 .note-item__date {
     font-size: 12px;
     margin-bottom: 8px;
-    color: #11335a;
+    color: var(--note-item-date);
 }
 
 .note-item__body {
@@ -240,7 +244,7 @@ button:hover {
 }
 
 .detail-page__createdAt {
-    color: #11335a;
+    color: var(--note-item-date);
 }
 
 .detail-page__body {
@@ -254,12 +258,9 @@ button:hover {
     display: flex;
 }
 
-.detail-page .material-symbols-outlined {
-    font-size: 3rem;
-}
-
 .note-input__body {
     background-color: white;
+    color: black;
     padding: 12px;
     border-radius: 4px;
     margin-bottom: 1rem;
@@ -272,10 +273,6 @@ button:hover {
 }
 
 @media screen and (min-width: 768px) {
-    .topnav a.icon {
-        display: none;
-    }
-
     .topnav #links {
         display: flex;
         flex-direction: row;

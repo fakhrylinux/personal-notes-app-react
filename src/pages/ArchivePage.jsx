@@ -1,9 +1,10 @@
 import React from "react";
-import { getArchivedNotes } from "../utils/local-data.js";
+import { getArchivedNotes } from "../utils/api.js";
 import NotesList from "../components/NotesList.jsx";
 import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
 import SearchBar from "../components/SearchBar.jsx";
+import LocaleContext from "../contexts/LocaleContext.js";
 
 function ArchiveWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,9 +23,18 @@ class ArchivePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getArchivedNotes(),
+      notes: [],
       keyword: props.defaultKeyword || "",
     };
+  }
+
+  async componentDidMount() {
+    const { data } = await getArchivedNotes();
+    this.setState(() => {
+      return {
+        notes: data,
+      };
+    });
   }
 
   onKeywordChangeHandler = (keyword) => {
@@ -44,21 +54,29 @@ class ArchivePage extends React.Component {
         .includes(this.state.keyword.toLowerCase());
     });
     return (
-      <div className="content">
-        <section className="note_shelf">
-          <h2>Archive Note Note</h2>
-          <SearchBar
-            keywordChange={this.onKeywordChangeHandler}
-            keyword={this.state.keyword}
-          />
+      <LocaleContext.Consumer>
+        {({ locale }) => {
+          return (
+            <div className="content">
+              <section className="note_shelf">
+                <h2>{locale === "id" ? "Arsip Catatan" : "Note Archive"}</h2>
+                <SearchBar
+                  keywordChange={this.onKeywordChangeHandler}
+                  keyword={this.state.keyword}
+                />
 
-          {notes.length === 0 ? (
-            <p className="notes-list__empty-message">No Note</p>
-          ) : (
-            <NotesList notes={notes} />
-          )}
-        </section>
-      </div>
+                {notes.length === 0 ? (
+                  <p className="notes-list__empty-message">
+                    {locale === "id" ? "Tidak ada catatan" : "No Note"}
+                  </p>
+                ) : (
+                  <NotesList notes={notes} />
+                )}
+              </section>
+            </div>
+          );
+        }}
+      </LocaleContext.Consumer>
     );
   }
 }

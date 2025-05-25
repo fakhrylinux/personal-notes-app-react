@@ -5,12 +5,8 @@ function DeleteButton({ id, onDelete }) {
   const onDeleteEventHandler = () => onDelete(id);
 
   return (
-    <a role="button" tabIndex={0}>
-      <MdDelete
-        size="3em"
-        onClick={onDeleteEventHandler}
-        style={{ cursor: "pointer", color: "red" }}
-      />
+    <a type="button" onClick={onDeleteEventHandler}>
+      <MdDelete size="3em" style={{ cursor: "pointer", color: "red" }} />
     </a>
   );
 }

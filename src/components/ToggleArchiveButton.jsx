@@ -5,7 +5,7 @@ function ToggleArchiveButton({ id, toggleArchive, toggleInnerText }) {
   const onClickEventHandler = () => toggleArchive(id);
 
   return toggleInnerText === "archive" ? (
-    <a role="button" tabIndex={0}>
+    <a type="button">
       <MdArchive
         size="3em"
         onClick={onClickEventHandler}
@@ -13,7 +13,7 @@ function ToggleArchiveButton({ id, toggleArchive, toggleInnerText }) {
       />
     </a>
   ) : (
-    <a role="button" tabIndex={0}>
+    <a type="button">
       <MdUnarchive
         size="3em"
         onClick={onClickEventHandler}
