@@ -12,20 +12,26 @@ function LoginInput({ login }) {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="login-input">
+    <form onSubmit={onSubmitHandler}>
+      <label htmlFor="email">Email </label>
       <input
+        id="email"
         type="email"
         placeholder="Email"
         value={email}
         onChange={onEmailChange}
         name="email"
+        className="auth-input"
       />
+      <label htmlFor="password">Password </label>
       <input
+        id="password"
         type="password"
         placeholder="Password"
         value={password}
         onChange={onPasswordChange}
         name="password"
+        className="auth-input"
       />
       <button>Masuk</button>
     </form>

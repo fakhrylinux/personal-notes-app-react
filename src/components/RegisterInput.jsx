@@ -13,22 +13,28 @@ function RegisterInput({ register }) {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="register-input">
+    <form onSubmit={onSubmitHandler}>
+      <label htmlFor="name">Name</label>
       <input
+        id="name"
         type="text"
-        placeholder="Nama"
+        placeholder="Name"
         value={name}
         onChange={handleNameChange}
         name="name"
       />
+      <label htmlFor="email">Email</label>
       <input
+        id="email"
         type="email"
         placeholder="Email"
         value={email}
         onChange={handleEmailChange}
         name="email"
       />
+      <label htmlFor="password">Password</label>
       <input
+        id="password"
         type="password"
         placeholder="Password"
         autoComplete="current-password"

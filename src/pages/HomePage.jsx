@@ -68,7 +68,7 @@ class HomePage extends React.Component {
             <>
               {this.state.loading && <ProgressBar />}
               <div className="content">
-                <section className="note_shelf">
+                <section className="container note_shelf">
                   <h2>{locale === "id" ? "Catatan Aktif" : "Active Note"}</h2>
                   <SearchBar
                     keywordChange={this.onKeywordChangeHandler}

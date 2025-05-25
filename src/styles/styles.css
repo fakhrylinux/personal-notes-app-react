@@ -72,6 +72,43 @@ body {
     color: var(--font-color);
 }
 
+.auth-page {
+    display: flex;
+    width: 80%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+}
+
+.auth-page__container {
+    border: 1px solid black;
+    background-color: var(--secondary-dark-color);
+    padding: 1.5rem;
+
+    input[type=text], input[type=email], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+}
+
 header {
     padding: .5rem;
     background-color: #596fb7;
@@ -137,7 +174,7 @@ main {
     margin-inline: auto;
 }
 
-section {
+section.container {
     border: 1px solid black;
     margin-inline: auto;
     width: 100%;
@@ -158,7 +195,7 @@ section {
 }
 
 /* Style inputs with type="text", select elements and textareas */
-input[type=text], input[type=number], select {
+input[type=text], input[type=number], input[type=password], input[type=email], select {
     width: 100%; /* Full width */
     padding: 12px; /* Some padding */
     border: 1px solid #ccc; /* Gray border */
@@ -283,7 +320,7 @@ button:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
     cursor: pointer;
 }

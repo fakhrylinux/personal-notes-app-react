@@ -83,7 +83,7 @@ class DetailPage extends React.Component {
     return (
       <>
         {this.state.loading && <ProgressBar />}
-        <section className="detail-page">
+        <section className="container detail-page">
           <h3 className="detail-page__title">{this.state.note.title}</h3>
 
           <p className="detail-page__createdAt">

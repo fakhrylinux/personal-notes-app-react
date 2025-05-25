@@ -17,7 +17,7 @@ function AddPage() {
   return (
     <>
       {loading && <ProgressBar />}
-      <section className="input__section">
+      <section className="container input__section">
         <NoteInput addNote={onAddNoteHandler} />
       </section>
     </>

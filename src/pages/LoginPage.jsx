@@ -20,12 +20,14 @@ function LoginPage({ loginSuccess }) {
   return (
     <>
       {loading && <ProgressBar />}
-      <section className="login-page">
-        <h2>Silakan masuk untuk melanjutkan ...</h2>
-        <LoginInput login={onLogin} />
-        <p>
-          Belum punya akun? <Link to="/register">Daftar di sini.</Link>
-        </p>
+      <section className="auth-page">
+        <div className="auth-page__container">
+          <h2>Silakan masuk untuk melanjutkan ...</h2>
+          <LoginInput login={onLogin} />
+          <p>
+            Belum punya akun? <Link to="/register">Daftar di sini.</Link>
+          </p>
+        </div>
       </section>
     </>
   );
