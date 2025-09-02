@@ -6,7 +6,7 @@ function NoteItem({ id, title, createdAt, body }) {
   return (
     <div className="note-item">
       <div className="note-item__content">
-        <Link to={`/notes/${id}`}>
+        <Link to={`/${id}`}>
           <h3 className="note-item__title">{title}</h3>
         </Link>
         <p className="note-item__date">{showFormattedDate(createdAt)}</p>

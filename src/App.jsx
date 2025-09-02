@@ -1,4 +1,3 @@
-import Navigation from "./components/Navigation.jsx";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage.jsx";
 import Archive from "./pages/ArchivePage.jsx";
@@ -11,6 +10,7 @@ import LocaleContext from "./contexts/LocaleContext.js";
 import ThemeContext from "./contexts/ThemeContext.js";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import Root from "./pages/Root.jsx";
 
 function NotesApp() {
   const [locale, setLocale] = useState(
@@ -90,15 +90,18 @@ function NotesApp() {
   return (
     <ThemeContext.Provider value={[theme, toggleTheme]}>
       <LocaleContext.Provider value={localeContext}>
-        <Navigation logout={onLogout} name={authedUser.name} />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
+        <Routes>
+          <Route
+            path="/"
+            element={<Root onLogout={onLogout} authedUser={authedUser.name} />}
+          >
+            <Route index element={<HomePage />} />
             <Route path="/archive" element={<Archive />} />
-            <Route path="/notes/new" element={<AddPage />} />
-            <Route path="/notes/:id" element={<DetailPage />} />
-          </Routes>
-        </main>
+            <Route path="/new" element={<AddPage />} />
+            <Route path="/:id" element={<DetailPage />} />
+            <Route path="/*" element={<p>404| Not Found</p>} />
+          </Route>
+        </Routes>
       </LocaleContext.Provider>
     </ThemeContext.Provider>
   );

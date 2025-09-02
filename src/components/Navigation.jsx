@@ -17,7 +17,7 @@ function Navigation({ logout, name }) {
         </Link>
         <ul id="links">
           <li>
-            <Link to="/notes/new">
+            <Link to="/new">
               {locale === "id" ? "Tambah Catatan" : "Add Note"}
             </Link>
           </li>
