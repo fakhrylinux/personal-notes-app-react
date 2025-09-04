@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { useContext } from "react";
 import ToggleTheme from "./ToggleTheme.jsx";
@@ -12,17 +12,19 @@ function Navigation({ logout, name }) {
   return (
     <header className="head_bar">
       <nav className="topnav">
-        <Link to="/">
+        <NavLink to="/">
           <h1 className="head_bar__title">Notes App</h1>
-        </Link>
+        </NavLink>
         <ul id="links">
           <li>
-            <Link to="/new">
+            <NavLink to="/new">
               {locale === "id" ? "Tambah Catatan" : "Add Note"}
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/archive">{locale === "id" ? "Arsip" : "Archive"}</Link>
+            <NavLink to="/archive">
+              {locale === "id" ? "Arsip" : "Archive"}
+            </NavLink>
           </li>
           <li>
             <ChangeLocaleButton toggleLocale={toggleLocale} locale={locale} />
