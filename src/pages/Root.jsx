@@ -1,21 +1,15 @@
 import Navigation from "../components/Navigation.jsx";
 import { Outlet } from "react-router";
-import PropTypes from "prop-types";
 
-function Root({ onLogout, authedUser }) {
+function Root() {
   return (
     <>
-      <Navigation logout={onLogout} name={authedUser} />
+      <Navigation />
       <main>
         <Outlet />
       </main>
     </>
   );
 }
-
-Root.propTypes = {
-  onLogout: PropTypes.func.isRequired,
-  authedUser: PropTypes.string.isRequired,
-};
 
 export default Root;

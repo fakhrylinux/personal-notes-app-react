@@ -2,11 +2,12 @@ import { NavLink } from "react-router";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { useContext } from "react";
 import ToggleTheme from "./ToggleTheme.jsx";
-import PropTypes from "prop-types";
 import LogoutButton from "./LogoutButton.jsx";
 import ChangeLocaleButton from "./ChangeLocaleButton.jsx";
+import { useAuth } from "../hooks/useAuth.js";
 
-function Navigation({ logout, name }) {
+function Navigation() {
+  const { authedUser, onLogout } = useAuth();
   const { locale, toggleLocale } = useContext(LocaleContext);
 
   return (
@@ -32,17 +33,12 @@ function Navigation({ logout, name }) {
         </ul>
         <div className="profile">
           <ToggleTheme />
-          {name}
-          <LogoutButton logout={logout} />
+          {authedUser.name}
+          <LogoutButton logout={onLogout} />
         </div>
       </nav>
     </header>
   );
 }
-
-Navigation.propTypes = {
-  logout: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-};
 
 export default Navigation;
